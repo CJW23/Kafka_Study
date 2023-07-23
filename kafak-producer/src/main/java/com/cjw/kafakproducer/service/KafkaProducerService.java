@@ -17,7 +17,6 @@ public class KafkaProducerService {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public String sendMessage(String message) {
-        kafkaTemplate.getProducerFactory();
         printSendResult(kafkaTemplate.send(TOPIC, message));
         return "OK";
     }
@@ -42,7 +41,7 @@ public class KafkaProducerService {
     /**
      * 전송 결과 로그 출력
      * recordMetadata=spring-kafka-1@2 -> 토픽명-파티션@오프셋
-     *
+     * acks=all 인경우 성고 여부를 받지 않으므로 오프셋이 -1로 표기
      */
     private void printSendResult(ListenableFuture<SendResult<String, String>> result) {
         try {

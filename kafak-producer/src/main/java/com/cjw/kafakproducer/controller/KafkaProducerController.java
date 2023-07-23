@@ -14,8 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class KafkaProducerController {
     private final KafkaProducerService kafkaProducerService;
 
-    @GetMapping("")
+    @GetMapping(value = "", name = "메시지 전송")
     public ResponseEntity<String> sendTest(@RequestParam String msg) {
         return ResponseEntity.ok(kafkaProducerService.sendMessage(msg));
+    }
+
+    @GetMapping(value = "/with-key", name = "Key 포함 메시지 전송")
+    public ResponseEntity<String> sendTestWithKey(@RequestParam String key, @RequestParam String msg) {
+        return ResponseEntity.ok(kafkaProducerService.sendMessageWithKey(key, msg));
+    }
+
+    @GetMapping(value = "/partition", name = "파티션 지정 전송")
+    public ResponseEntity<String> sendTestPartition(@RequestParam String key, @RequestParam String msg) {
+        return ResponseEntity.ok(kafkaProducerService.sendMessageWithKeyAndPartition(key, msg));
     }
 }

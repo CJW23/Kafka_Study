@@ -4,12 +4,12 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="/usr/local/Cellar/gradle/7.0.2/libexec" />
-        <option name="gradleJvm" value="15" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/kafak-producer" />
+        <option name="gradleHome" value="/usr/local/Cellar/gradle/7.3/libexec" />
+        <option name="gradleJvm" value="openjdk-17" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/kafak-producer" />
           </set>
         </option>
       </GradleProjectSettings>

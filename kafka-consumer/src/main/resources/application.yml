@@ -1,0 +1,11 @@
+spring:
+
+  kafka:
+    topic:
+      name: spring-kafka
+    consumer:
+      bootstrap-servers: http://localhost:9092
+      group-id: test-group
+      properties:
+        key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        value.deserializer: org.apache.kafka.common.serialization.StringDeserializer

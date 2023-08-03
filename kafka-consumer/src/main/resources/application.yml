@@ -1,5 +1,4 @@
 spring:
-
   kafka:
     topic:
       name: spring-kafka

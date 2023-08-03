@@ -18,3 +18,10 @@
     - bin/kafka-console-producer.sh --bootstrap-server [localhost:9092](http://localhost:9092) --topic 토픽명 --property “parse.key=true” --property “key.separator=:”
 - 컨슈머 실행
     - bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic  토픽명 --property print.key=true --property key.separator=" : " --from-beginning
+
+
+### 카프카 스프링 라이브러리
+
+- Kafka Listener 구현체: KafkaMessageListenerContainer.java
+    - message poll: 1244 Line
+

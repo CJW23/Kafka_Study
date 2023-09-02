@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 public class KafkaProducerService {
     public static final String TOPIC = "spring-kafka";
+    public static final String NOT_COMMIT_TEST_TOPIC = "not-commit-test";
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public String sendMessage(String message) {
@@ -36,6 +37,11 @@ public class KafkaProducerService {
     public String sendMessageWithKeyAndPartition(String key, String message) {
         printSendResult(kafkaTemplate.send(TOPIC, 0, key, message));
         return "OK";
+    }
+
+    public String sendMessageNotCommitTest(String message) {
+        printSendResult(kafkaTemplate.send(NOT_COMMIT_TEST_TOPIC, message));
+        return "NOT COMMIT TEST OK";
     }
 
     /**

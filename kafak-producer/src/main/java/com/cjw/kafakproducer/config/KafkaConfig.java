@@ -24,7 +24,7 @@ public class KafkaConfig {
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
-
+        configProps.put("min.insync.replicas", "2");
         // ACK 모드 설정
         configProps.put(ProducerConfig.ACKS_CONFIG, "1"); // 또는 "1", "0" 등의 옵션 사용
 

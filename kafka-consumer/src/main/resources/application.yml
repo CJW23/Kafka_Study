@@ -1,7 +1,12 @@
+server:
+  port: 8081
 spring:
   kafka:
+    listener:
+      ack-mode: MANUAL
     topic:
-      name: spring-kafka
+      spring-kafka-topic: spring-kafka
+      commit-test-topic: commit-test-topic
     consumer:
       bootstrap-servers: http://localhost:9092
       group-id: test-group

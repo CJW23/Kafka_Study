@@ -33,4 +33,9 @@ public class KafkaProducerController {
     public ResponseEntity<String> sendTestForNotCommit(@RequestParam String msg) {
         return ResponseEntity.ok(kafkaProducerService.sendMessageNotCommitTest(msg));
     }
+
+    @GetMapping(value = "/concurrency-test", name = "컨슈머 커밋 X 테스트 토픽 전송")
+    public ResponseEntity<String> sendTestForConcurrency(@RequestParam String msg) {
+        return ResponseEntity.ok(kafkaProducerService.sendMessageConcurrencyTest(msg));
+    }
 }

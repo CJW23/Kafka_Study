@@ -15,6 +15,7 @@ import java.util.concurrent.ExecutionException;
 public class KafkaProducerService {
     public static final String TOPIC = "spring-kafka";
     public static final String NOT_COMMIT_TEST_TOPIC = "not-commit-test";
+    public static final String CONCURRENCY_TEST_TOPIC = "concurrency-test";
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public String sendMessage(String message) {
@@ -39,9 +40,20 @@ public class KafkaProducerService {
         return "OK";
     }
 
+    /**
+     * 컨슈머가 커밋 하지 않는 토픽 전송
+     */
     public String sendMessageNotCommitTest(String message) {
         printSendResult(kafkaTemplate.send(NOT_COMMIT_TEST_TOPIC, message));
         return "NOT COMMIT TEST OK";
+    }
+
+    /**
+     * 컨슈머가 커밋 하지 않는 토픽 전송
+     */
+    public String sendMessageConcurrencyTest(String message) {
+        printSendResult(kafkaTemplate.send(CONCURRENCY_TEST_TOPIC, message));
+        return "CONCURRENCY TEST OK";
     }
 
     /**

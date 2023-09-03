@@ -28,7 +28,7 @@ public class TopicSpringConsumerListener {
     }
 
     /**
-     * id 설정시 id -> group id로 설정
+     * id 설정시 *idIsGroup* default true 값으로 인해 id -> group id로 설정
      */
     @KafkaListener(id = "id-test1", topics = "${spring.kafka.topic.spring-kafka-topic}")
     public void idTestConsume1(ConsumerRecord<String, String> record) {
@@ -58,5 +58,41 @@ public class TopicSpringConsumerListener {
         log.info("Offset: " + record.offset());
         log.info("===========not-commit End=============");
         throw new RuntimeException("Error Test");
+    }
+
+    /**
+     * autoStartup: 리스너 엔드포인트 등록
+     * 즉 autoStartup true: 해당 listener 동작 수행
+     */
+    @KafkaListener(autoStartup = "false", topics = "not-commit-test", groupId = "${spring.kafka.consumer.group-id}")
+    public void autoStartup(ConsumerRecord<String, String> record, Acknowledgment acknowledgment) {
+    }
+
+
+    /**
+     * concurrency : partition = 1 : 1?
+     * concurrency thread -> 파티션당 하나의 thread 할당
+     * 컨슈머 그룹이 2개 인스턴스가 띄워져 있는 경우 각 컨슈머가 파티션 하나씩 할당
+     * 만약 컨슈머 인스턴스가 2개, concurrency 2개 파티션이 2개이면?
+     * -> 각 인스턴스에 할당된 파티션 데이터가 수행될테니 concurrency 2개는 의미가 없음
+     * -> 파티션 2개인 경우 20초 동안 같은 파티션로부터 온 데이터는 처리 안됨 (스레드당 하나의 파티션을 담당하기 때문)
+     * 파티션 3개인 경우
+     * -> 파티션 2개 할당 받은 컨슈머에서 하나의 파티션을 처리하고 sleep 빠져도 concurrency 2이기에 다른 파티션 처리
+     */
+    @KafkaListener(topics = "concurrency-test", groupId = "${spring.kafka.consumer.group-id}", concurrency = "2")
+    public void concurrencyTestConsume(ConsumerRecord<String, String> record) {
+        log.info("===========concurrency-test=============");
+        log.info("Topic: " + record.topic());
+        log.info("Partition: " + record.partition());
+        log.info("Value: " + record.value());
+        log.info("Offset: " + record.offset());
+        log.info("===========concurrency-test=============");
+        try {
+            log.info("===========sleep start=============");
+            Thread.sleep(20000);
+            log.info("===========sleep end=============");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
